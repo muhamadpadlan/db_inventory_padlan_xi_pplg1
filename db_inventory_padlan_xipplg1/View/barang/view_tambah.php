@@ -47,7 +47,7 @@
 
     <div class="container mt-4">
         <h1>Tambah Barang</h1>
-        <form action="proses_tambah.php" method="post">
+        <form action="proses_tambah.php?id_barang=<?php echo $result['id_barang']; ?>" method="POST">
             <label for="id_barang">id barang</label>
             <input type="text" name="id_barang" class="form-control">
 

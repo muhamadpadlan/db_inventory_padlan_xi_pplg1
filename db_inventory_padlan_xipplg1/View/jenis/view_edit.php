@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mahendra</title>
+    <title>Mahenqt</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Mahennqt</a>
+            <a class="navbar-brand" href="#">Mahenqt</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -47,50 +47,38 @@
             </div>
         </div>
     </nav>
+    <div class="container">
+        <h2>Edit Data Jenis</h2>
+        <?php
+        include '../../config/koneksi.php';
 
-    
-        <h1>Data Barang</h1>
-        <a  href="view_tambah.php" class="btn btn-primary" ><i class="fa-solid fa-plus"></i>Tambah Barang</a>
-        <br><br>
-        <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-                <th scope="col">ID Barang</th>
-                <th scope="col">ID Jenis</th>
-                <th scope="col">Stok</th>
-                <th scope="col">Harga</th>
-                <th scope="col">Nama Barang</th>
-                <th scope="col">Aksi</th>
-            </tr>
-          </thead>
-            <?php
-            include '../../Config/Koneksi.php';
-            $query = mysqli_query($conn, "SELECT * FROM barang");
-            if (mysqli_num_rows($query)) {
-                while ($result = mysqli_fetch_assoc($query)) {
-            ?>
-                    <tr>
-                        <td><?php echo $result['id_barang']; ?></td>
-                        <td><?php echo $result['Stok']; ?></td>
-                        <td><?php echo $result['harga']; ?></td>
-                        <td><?php echo $result['Nama_Barang']; ?></td>
-                        <td><?php echo $result['id_jenis']; ?></td>
-                        <td>
-                            <a href="view_edit.php?id_barang=<?php echo $result['id_barang'] ?>" 
-                            class="btn btn-warning" href="#" role="button"><i class="fa-solid fa-pencil"></i> Edit</a>
-                            <a href="hapus.php?id_barang=<?php echo $result['id_barang'] ?>" 
-                            onclick="return confirm('kamu yakin?')"
-                            class="btn btn-danger" href="#" role="button"><i class="fa-solid fa-pencil"></i> Hapus</a>
-                        </td>
-                    </tr>
-            <?php
-                }
-            } else {
-                echo "<tr><td colspan='6'>Data Kosong</td></tr>";
-            }
-            ?>
-        </table>
-    </>
+        $id_jenis = $_GET['id_jenis'];
+        $query = mysqli_query($conn, "SELECT * FROM jenis WHERE id_jenis = '$id_jenis'");
+        $result = mysqli_fetch_array($query);
+        ?>
+        <form action="proses_edit.php?id_jenis=<?php echo $result['id_jenis']; ?>" method="POST">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">ID Jenis</label>
+                <input type="number" class="form-control" name="id_jenis" 
+                value="<?php echo $result['id_jenis']?>" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+
+           <div class="mb-3">
+            <label for="" class="form-label">nama jenis</label>
+            <input
+                type="text"
+                class="form-control"
+                name="Nama_jenis"
+                id=""
+                value="<?php echo $result['Nama_jenis']?>"
+                aria-describedby="helpId"
+                placeholder=""
+            />
+            <small id="helpId" class="form-text text-muted">Help text</small>
+           </div>
+           
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 </body>
-
 </html>

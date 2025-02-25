@@ -44,39 +44,43 @@
     </div>
   </div>
 </nav>
-    <div class="container">
-    <h1>Data Jenis</h1>
-    <a href="view_tambah.php" class="btn btn-primary">Tambahkan Jenis</a>
-    <h1></h1>
-<table class="table">
-  <thead>
-    <tr class="table-primary">
-      <th scope="col">id Jenis</th>
-      <th scope="col">Nama Jenis</th>
+<h1>Data Jenis</h1>
+        <a  href="view_tambah.php" class="btn btn-primary" ><i class="fa-solid fa-plus"></i>Tambah Jenis</a>
+        <br><br>
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+                <th scope="col">ID Jenis</th>
+                <th scope="col">Nama Jenis</th>
+                <th scope="col">Aksi</th>
+            </tr>
+          </thead>
+            <?php
+            include '../../Config/Koneksi.php';
+            $query = mysqli_query($conn, "SELECT * FROM jenis");
+            $no=1;
+            if (mysqli_num_rows($query)) {
+                while ($result = mysqli_fetch_assoc($query)) {
+            ?>
+                    <tr>
+                      <td><?php echo $no;?></td>
+                        <td><?php echo $result['id_jenis']; ?></td>
+                        <td><?php echo $result['Nama_jenis']; ?></td>
 
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>ATK</td>
-    </tr>
-    <tr class="table-primary">
-      <td>2</td>
-      <td>Elektronik</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Ekonomi</td>
-
-    <tr class="table-primary">
-
-      <td>4</td>
-      <td>Illith</td>
-
-    </tr>
-  </tbody>
-</table>
-</div>
+                        <td>
+                        <a href="view_edit.php?id_jenis=<?php echo $result['id_jenis']?>" 
+                        class="btn btn-warning" href="#" role="button"><i class="fa-solid fa-pencil"></i> Edit</a>
+                        </td>
+                    </tr>
+            <?php
+                }
+            } else {
+                echo "<tr><td colspan='6'>Data Kosong</td></tr>";
+            }
+            ?>
+        </table>
+    </>
 </body>
+
 </html>
